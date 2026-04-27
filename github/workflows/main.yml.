@@ -1,0 +1,22 @@
+name: "Gerar APK do ZIP"
+on: [push]
+
+jobs:
+  export_android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Extrair Projeto do ZIP
+        run: unzip MysticFarmEmpire3D.zip -d ./
+
+      - name: Exportar APK via Godot
+        uses: firebelley/godot-export@v5.2.1
+        with:
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.2.2/Godot_v4.2.2-stable_linux_headless.64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.2.2/Godot_v4.2.2-stable_export_templates.tpz
+          relative_project_path: ./
+          archive_export_output: true
+        env:
+          EXPORT_NAME: MysticFarmFinal
